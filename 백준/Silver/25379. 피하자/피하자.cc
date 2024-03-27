@@ -4,45 +4,35 @@
 #include <string>
 #include <map>
 using namespace std;
-void swap(int a, int b) {
-	int tmp;
-	tmp = a;
-	a = b;
-	b = tmp;
-}
 int main() {
 	cin.tie(0);
 	ios_base::sync_with_stdio(0);
-	int n;
+	long long n,a,idx1,idx2,sum=0,sum2=0;
 	cin >> n;
-	int a;
 	vector<int> x;
 	for (int i = 0; i < n; i++) {
 		cin >> a;
 		x.push_back(a);
 	}
-	int idx;
-	int sum = 0;
-	int sum2 = 0;
-	if (x[0] % 2 == 0)idx = 0;
-	else idx = 1;
-		for (int i = 1; i < n; i++) {
+	if (x[0] % 2 == 0) {
+		idx1 = 0;
+		idx2 = 1;
+	}
+	else {
+		idx1 = 1;
+		idx2 = 0;
+	}
+	for (int i = 1; i < n; i++) {
 			if (x[i] % 2 != 0) {
-				sum += (i - idx);
-				idx++;
+				sum += (i - idx1);
+				idx1++;
+			}
+			else {
+				sum2 += (i - idx2);
+				idx2++;
 			}
 
 		}
-		if (x[0] % 2 == 0)idx = 1;
-		else idx = 0;
-		for (int i = 1; i < n; i++) {
-			if (x[i] % 2 == 0) {
-				sum2 += (i - idx);
-				idx++;
-			}
-		}
-		if (sum > sum2)cout << sum2;
-		else cout << sum;
-
+	cout << min(sum, sum2);
 	return 0;
 }
