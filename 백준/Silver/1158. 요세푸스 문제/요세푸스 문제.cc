@@ -12,28 +12,19 @@ int main() {
     cout.tie(nullptr);
     int n, k;
     cin >> n >> k;
-    vector<int> x(n),x2;
-    for (int i = 0; i < n; i++)x[i] = i + 1;
-    int idx = 0,cnt=1;
-    while (x.size()>0) {
-        if (cnt == k) {
-            x2.push_back(x[idx]);
-            x.erase(x.begin() + idx);
-            cnt = 1;
-        }
-        else {
-            idx++;
-            cnt++;
-        }
-        if(x.size()>0)
-        idx %= x.size();
-    }
+    queue<int> q;
+    for (int i = 1; i <= n; i++)q.push(i);
     cout << '<';
-    for (int i = 0; i < x2.size(); i++) {
-        cout << x2[i];
-        if (i != n - 1)cout << ", ";
-    }cout << '>';
-
-
+    while (!q.empty()) {
+        for (int i = 0; i < k - 1; i++) {
+            q.push(q.front());
+                q.pop();
+        }
+        
+        cout << q.front();
+        q.pop();
+        if (!q.empty())cout << ", ";
+    }
+    cout << '>';
     return 0;
 }
