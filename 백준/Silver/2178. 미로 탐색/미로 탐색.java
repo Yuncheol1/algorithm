@@ -1,13 +1,16 @@
-//package algorithm;
-
-import java.io.*;
-import java.util.*;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
+    static int n, m;
     static int[][] x;
     static boolean[][] visited;
-    static int n, m;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,45 +20,31 @@ public class Main {
         x = new int[n][m];
         visited = new boolean[n][m];
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            String line = st.nextToken();
+            String line = br.readLine();
             for (int j = 0; j < m; j++) {
                 x[i][j] = Integer.parseInt(line.substring(j, j + 1));
             }
         }
         bfs(0, 0);
-        System.out.print(x[n - 1][m - 1]);
-
+        System.out.println(x[n - 1][m - 1]);
     }
 
-    public static void bfs(int i, int j) {
+    static void bfs(int i, int j) {
         Queue<int[]> q = new LinkedList<>();
         visited[i][j] = true;
         q.add(new int[]{i, j});
         while (!q.isEmpty()) {
             int[] now = q.poll();
-            int r = now[0];
-            int c = now[1];
-            if (r < n && c - 1 < m && r >= 0 && c - 1 >= 0 && x[r][c - 1] != 0 && !visited[r][c - 1]) {
-                visited[r][c - 1] = true;
-                x[r][c - 1] = x[r][c] + 1;
-                q.add(new int[]{r, c - 1});
-            }
-            if (r < n && c + 1 < m && r >= 0 && c + 1 >= 0 && x[r][c + 1] != 0 && !visited[r][c + 1]) {
-                visited[r][c + 1] = true;
-                x[r][c + 1] = x[r][c] + 1;
-                q.add(new int[]{r, c + 1});
-            }
-            if (r - 1 < n && c < m && r - 1 >= 0 && c >= 0 && x[r - 1][c] != 0 && !visited[r - 1][c]) {
-                visited[r - 1][c] = true;
-                x[r - 1][c] = x[r][c] + 1;
-                q.add(new int[]{r - 1, c});
-            }
-            if (r + 1 < n && c < m && r + 1 >= 0 && c >= 0 && x[r + 1][c] != 0 && !visited[r + 1][c]) {
-                visited[r + 1][c] = true;
-                x[r + 1][c] = x[r][c] + 1;
-                q.add(new int[]{r + 1, c});
+            for (int k = 0; k < 4; k++) {
+                int nx = now[0] + dx[k];
+                int ny = now[1] + dy[k];
+                if (nx >= 0 && ny >= 0 && nx < n && ny < m && x[nx][ny] == 1 && !visited[nx][ny]) {
+                    visited[nx][ny] = true;
+                    q.add(new int[]{nx, ny});
+                    x[nx][ny] = x[now[0]][now[1]] + 1;
+                }
             }
         }
+
     }
 }
