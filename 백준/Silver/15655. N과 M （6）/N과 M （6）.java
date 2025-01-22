@@ -37,7 +37,7 @@ public class Main {
             if (!visited[i]) {
                 visited[i] = true;
                 ans[depth] = x[i];
-                BackTracking(depth + 1,i);
+                BackTracking(depth + 1,i+1);
                 visited[i] = false;
             }
         }
