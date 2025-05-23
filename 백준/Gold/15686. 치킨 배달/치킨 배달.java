@@ -5,18 +5,19 @@ public class Main {
     static ArrayList<int[]> home = new ArrayList<>();
     static ArrayList<int[]> chicken = new ArrayList<>();
     static int[][] ans;
-    static boolean visited[];
     static int min = 10000000;
     static int m;
 
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        m = sc.nextInt();
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
         ans = new int[m][2];
         for (int i = 0; i < n; i++) {
+            st=new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
-                int x = sc.nextInt();
+                int x = Integer.parseInt(st.nextToken());
                 if (x == 1) {
                     home.add(new int[]{i, j});
                 } else if (x == 2) {
@@ -24,7 +25,6 @@ public class Main {
                 }
             }
         }
-        visited = new boolean[chicken.size()];
         dfs(m, 0,0);
         System.out.print(min);
     }
@@ -37,16 +37,10 @@ public class Main {
         }
         if(start>=chicken.size())return;
         for (int i = start; i < chicken.size(); i++) {
-            if (!visited[i]) {
                 ans[depth][0] = chicken.get(i)[0];
                 ans[depth][1] = chicken.get(i)[1];
-                visited[i] = true;
                 dfs(m, depth + 1,i+1);
-                visited[i] = false;
-            }
         }
-
-
     }
 
     static int chickenRoad() {
