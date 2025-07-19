@@ -3,6 +3,9 @@ import java.io.*;
 /*
 전형적인 dfs문제.
 인접리스트로 관계를 표현후에 dfs
+주의할점은 한점에대해서 dfs가 끝나면 방문배열을 초기화 해주는것
+왜냐, 어디에서 dfs를 출발하냐에 따라 가능한 depth가 달라진다.
+예제입력 2를 보면 알수있음
  */
 public class Main {
     static boolean arrive=false;
