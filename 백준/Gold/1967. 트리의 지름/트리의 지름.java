@@ -40,7 +40,9 @@ public class Main {
             tree[p].add(new node(c,w));
             tree[c].add(new node(p,w));
         }
-        bfs(1);
+        for(int i=2;i<n+1;i++){
+            if(tree[i].size()==1)leaf.add(i);
+        }
 
         for(int now:leaf){
             Arrays.fill(visited,false);
@@ -68,32 +70,11 @@ public class Main {
 
 
     }
-    static void bfs(int start){
-        visited[start]=true;
-        ArrayDeque<Integer>q=new ArrayDeque<>();
-        q.offer(start);
-        while(!q.isEmpty()){
-            int now=q.poll();
-            if(tree[now].size()==1&&now!=1){
-                leaf.add(now);
-                visited[now]=true;
-                continue;
-            }
-            for(int i=0;i<tree[now].size();i++){
-                if(!visited[tree[now].get(i).v]){
-                    q.offer(tree[now].get(i).v);
-                    visited[tree[now].get(i).v]=true;
-                }
-            }
-        }
-    }
+
 
 }
 /*
 4
-1 2 1
-2 3 100
-2 4 1004
 1 2 1
 2 3 100
 2 4 100
